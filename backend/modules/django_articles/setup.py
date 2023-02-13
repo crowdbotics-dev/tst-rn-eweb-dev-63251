@@ -10,9 +10,9 @@ class BuildCommand(build):
 
 
 setup(
-    name="cb_django_drive",
+    name="cb_django_articles",
     version="0.1",
-    packages=["drive"],
-    install_requires=["google-api-python-client", "google-auth-httplib2", "google-auth-oauthlib"],
+    packages=["articles"],
+    install_requires=[],
     cmdclass={"build": BuildCommand},
 )

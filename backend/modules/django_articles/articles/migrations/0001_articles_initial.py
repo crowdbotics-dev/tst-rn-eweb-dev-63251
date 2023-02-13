@@ -2,10 +2,7 @@
 
 from django.conf import settings
 from django.db import migrations, models
-
-from modules.utils import get_options
-
-MEDIA_UPLOAD_PATH = get_options("files", "MEDIA_UPLOAD_PATH")
+import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
@@ -18,7 +15,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name="FileUpload",
+            name="Article",
             fields=[
                 (
                     "id",
@@ -30,20 +27,20 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 ("title", models.CharField(max_length=256)),
-                ("description", models.TextField()),
+                ("body", models.TextField()),
                 ("created_at", models.DateTimeField(auto_now_add=True)),
                 (
-                    "file",
+                    "image",
                     models.ImageField(
-                        upload_to=MEDIA_UPLOAD_PATH, blank=True, null=True
+                        upload_to="mediafiles/articles/", blank=True, null=True
                     ),
                 ),
                 ("updated_at", models.DateTimeField(auto_now=True)),
                 (
-                    "user",
+                    "author",
                     models.ForeignKey(
-                        on_delete=models.deletion.PROTECT,
-                        related_name="files_uploads",
+                        on_delete=django.db.models.deletion.PROTECT,
+                        related_name="article_author",
                         to=settings.AUTH_USER_MODEL,
                     ),
                 ),
